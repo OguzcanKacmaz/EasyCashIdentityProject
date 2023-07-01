@@ -21,4 +21,8 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.19" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EasyCash.EntityLayer\EasyCash.EntityLayer.csproj" />
+  </ItemGroup>
+
 </Project>
