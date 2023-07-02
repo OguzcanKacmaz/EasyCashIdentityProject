@@ -1,10 +1,23 @@
+using EasyCash.DataAccessLayer.Concrete;
 using EasyCash.DataAccessLayer.Extensions;
+using EasyCash.EntityLayer.Concrete;
+using EasyCash.BusinessLayer.Extensions;
+
+using Microsoft.AspNetCore.Identity;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services
-    .AddDbContextConnection(builder.Configuration);
+    .AddDbContextConnection(builder.Configuration)    
+    .AddBusinessService();
+
+builder.Services.AddIdentity<AppUser, AppRole>()
+	.AddSignInManager<SignInManager<AppUser>>()
+	.AddEntityFrameworkStores<ApplicationDbContext>()
+	.AddDefaultTokenProviders();
+
 
 var app = builder.Build();
 
@@ -21,6 +34,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
